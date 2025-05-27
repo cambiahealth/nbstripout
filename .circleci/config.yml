@@ -3,6 +3,38 @@ version: 2.1
 orbs:
   codeql: cambiahealth/codeql-sast@1
 
+jobs:
+  tag-repo:
+    docker:
+      - image: cimg/python:3.12
+    steps:
+      - checkout
+      - run:
+          name: Set up git user
+          command: |
+            git config --global user.email "ci-build@circleci.com"
+            git config --global user.name "CircleCI Build"
+      - run:
+          name: Create and push timestamp tag
+          command: |
+            # Only run on main branch
+            if [ "${CIRCLE_BRANCH}" = "main" ]; then
+              # Create timestamp tag
+              TIMESTAMP=$(date -u +"%Y%m%d_%H%M%S")
+              git tag -a "v${TIMESTAMP}" -m "Automated timestamp tag ${TIMESTAMP}"
+              
+              # Push timestamp tag
+              git push origin "v${TIMESTAMP}"
+              
+              # Update latest tag
+              git tag -fa latest -m "Update latest tag to ${CIRCLE_SHA1}"
+              git push origin latest --force
+              
+              echo "Successfully tagged repository with v${TIMESTAMP} and updated latest tag"
+            else
+              echo "Not on main branch, skipping tagging"
+            fi
+
 workflows:
   codeql:
     jobs:
@@ -12,5 +44,12 @@ workflows:
           docker-image: cimg/python:3.12
           language: python
           code-path: ./nbstripout
+  
+  tag-repository:
+    jobs:
+      - tag-repo:
+          filters:
+            branches:
+              only: main
 
   version: 2
