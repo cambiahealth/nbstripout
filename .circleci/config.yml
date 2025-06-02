@@ -11,16 +11,16 @@ jobs:
       - image: cimg/python:3.12
     steps:
       - checkout
-      - run:
-          name: Set up git user
-          command: |
-            git config --global user.email "ci-build@circleci.com"
-            git config --global user.name "CircleCI Build"
+      #- run:
+      #    name: Set up git user
+      #    command: |
+      #      git config --global user.email "ci-build@circleci.com"
+      #      git config --global user.name "CircleCI Build"
       - run:
           name: Create and push timestamp tag
           command: |
             # Only run on main branch
-            if [ "${CIRCLE_BRANCH}" = "main" ]; then
+            if [ "${CIRCLE_BRANCH}" != "main" ]; then
               # Create timestamp tag
               TIMESTAMP=$(date -u +"%Y%m%d_%H%M%S")
               git tag -a "v${TIMESTAMP}" -m "Automated timestamp tag ${TIMESTAMP}"
@@ -59,8 +59,8 @@ workflows:
                     },
                     "repositories": [ "nbstripout" ]
                   }
-          filters:
-            branches:
-              only: main
+                  #filters:
+                  #  branches:
+                  #    only: main
 
   version: 2
