@@ -59,9 +59,9 @@ workflows:
                 #     },
                 #     "repositories": [ "npstripout" ]
                 #   }
-          context: 
-            - nbstripout
-            #- cambia
+          context: cambia
+            #- nbstripout
+           # - cambia
          # filters:
          #   branches:
          #     only: main
