@@ -51,17 +51,15 @@ workflows:
     jobs:
       - tag-repo:
           pre-steps:
-            - sb/common-utils-generate-github-token
-                # scope: |
-                #   {
-                #     "permissions": {
-                #       "contents": "write",
-                #     },
-                #     "repositories": [ "npstripout" ]
-                #   }
+            - sb/common-utils-generate-github-token:
+                scope: |
+                  {
+                    "permissions": {
+                      "contents": "write"
+                    },
+                    "repositories": [ "npstripout" ]
+                  }
           context: cambia
-            #- nbstripout
-           # - cambia
          # filters:
          #   branches:
          #     only: main
