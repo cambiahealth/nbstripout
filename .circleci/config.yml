@@ -20,7 +20,7 @@ jobs:
           name: Create and push timestamp tag
           command: |
             # Only run on main branch
-            if [ "${CIRCLE_BRANCH}" = "main" ]; then
+            if [ "${CIRCLE_BRANCH}" = "PIE-4748-add-tag-take-3" ]; then
               # Create timestamp tag
               TIMESTAMP=$(date -u +"%Y%m%d_%H%M%S")
               git tag -a "v${TIMESTAMP}" -m "Automated timestamp tag ${TIMESTAMP}"
@@ -59,8 +59,9 @@ workflows:
                     },
                     "repositories": [ "npstripout" ]
                   }
-          filters:
-            branches:
-              only: main
+          context: cambia
+         # filters:
+         #   branches:
+         #     only: main
 
   version: 2
