@@ -16,6 +16,7 @@ jobs:
           command: |
             git config --global user.email "ci-build@circleci.com"
             git config --global user.name "CircleCI Build"
+            git remote set-url origin https://github.com/cambiahealth/nbstripout.git
       - run:
           name: Create and push timestamp tag
           command: |
@@ -50,14 +51,15 @@ workflows:
   tag-repository:
     jobs:
       - tag-repo:
+          context: cambia
           pre-steps:
             - sb/common-utils-generate-github-token:
                 scope: |
                   {
                     "permissions": {
-                      "contents": "write",
+                      "contents": "write"
                     },
-                    "repositories": [ "npstripout" ]
+                    "repositories": [ "nbstripout" ]
                   }
           filters:
             branches:
