@@ -50,17 +50,15 @@ workflows:
   tag-repository:
     jobs:
       - tag-repo:
+          context: cambia
           pre-steps:
             - sb/common-utils-generate-github-token:
                 scope: |
                   {
                     "permissions": {
-                      "contents": "write",
+                      "contents": "write"
                     },
                     "repositories": [ "nbstripout" ]
                   }
-                  #filters:
-                  #  branches:
-                  #    only: main
 
   version: 2
