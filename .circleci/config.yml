@@ -2,6 +2,8 @@ version: 2.1
 
 orbs:
   codeql: cambiahealth/codeql-sast@1
+  sb: cambiahealth/stack-build@1
+
 
 jobs:
   tag-repo:
@@ -48,6 +50,15 @@ workflows:
   tag-repository:
     jobs:
       - tag-repo:
+          pre-steps:
+            - sb/common-utils-generate-github-token:
+                scope: |
+                  {
+                    "permissions": {
+                      "contents": "write",
+                    },
+                    "repositories": [ "npstripout" ]
+                  }
           filters:
             branches:
               only: main
