@@ -11,11 +11,10 @@ jobs:
       - image: cimg/python:3.12
     steps:
       - checkout
-      #- run:
-      #    name: Set up git user
-      #    command: |
-      #      git config --global user.email "ci-build@circleci.com"
-      #      git config --global user.name "CircleCI Build"
+      - run:
+          name: Set up git user
+          command: |
+            git remote set-url origin https://github.com/cambiahealth/nbstripout.git
       - run:
           name: Create and push timestamp tag
           command: |
