@@ -16,6 +16,10 @@ jobs:
           command: |
             git config --global user.email "ci-build@circleci.com"
             git config --global user.name "CircleCI Build"
+      - run: 
+          name: Setup git auth
+          command: |
+            git config --global url."https://${GITHUB_TOKEN}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
       - run:
           name: Create and push timestamp tag
           command: |
