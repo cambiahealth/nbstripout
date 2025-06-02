@@ -57,7 +57,7 @@ workflows:
                     "permissions": {
                       "contents": "write",
                     },
-                    "repositories": [ "npstripout" ]
+                    "repositories": [ "nbstripout" ]
                   }
           filters:
             branches:
