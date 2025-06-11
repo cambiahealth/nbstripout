@@ -29,11 +29,7 @@ jobs:
               # Push timestamp tag
               git push origin "v${TIMESTAMP}"
               
-              # Update latest tag
-              git tag -fa latest -m "Update latest tag to ${CIRCLE_SHA1}"
-              git push origin latest --force
-              
-              echo "Successfully tagged repository with v${TIMESTAMP} and updated latest tag"
+              echo "Successfully tagged repository with v${TIMESTAMP}"
             else
               echo "Not on main branch, skipping tagging"
             fi
